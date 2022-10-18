@@ -1,0 +1,7 @@
+<design:component label="SearchifyTracksList">
+    <design:attribute name="type" label="Type" description="Choose Tracks List Type" dataSource="All Tracks, Favorite Tracks, Tracks Black List, Recent Favorite Tracks, Recent Black List Tracks"/>
+    <design:attribute name="limit" label="Number Of Records To Display" description="Choose Number Of Records To Display"/>
+    <design:attribute name="offset" label="Number Of Records To Be Skipped" description="Choose Number Of Records To Be Skipped"/>
+
+    <design:attribute name="numberOfRecordsToDisplay" label="Number Of Records To Display" description="Choose Number Of Records To Display"/>
+</design:component>

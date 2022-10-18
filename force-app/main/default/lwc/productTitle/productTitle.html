@@ -1,0 +1,20 @@
+<template>
+    <div>
+        <template if:false={tileview}>
+            <div style="color: #4f5b62; font-size: 1.625rem; font-weight: 500; line-height: 2rem; text-transform: initial;">{product.Name}</div>
+            <div style="display: flex; gap: 20px">
+                <div>{product.Manufacturer__c}</div>
+                <div>{product.ProductCode}</div>
+                <div>{product.Family}</div>
+            </div>
+        </template>
+        <template if:true={tileview}>
+            <div style="color: #4f5b62; font-size: 15px; font-weight: 500; line-height: 2rem; text-transform: initial;">{product.Name}</div>
+            <div style="display: flex; gap: 10px">
+                <div>{product.Manufacturer__c}</div>
+                <div>{product.ProductCode}</div>
+                <div>{product.Family}</div>
+            </div>
+        </template>
+    </div>
+</template>

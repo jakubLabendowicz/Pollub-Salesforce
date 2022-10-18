@@ -1,0 +1,27 @@
+<template>
+    <div>
+        <div style="width: 100%; display: flex; gap: 25px;">
+            <div class="categoryTile">
+                <a href={allUrl} onclick={allClick} style="color: black">{label.all}</a>
+            </div>
+            <div class="categoryTile">
+                <a href={gatewaysUrl} onclick={gatewaysClick} style="color: black">{label.gateways}</a>
+            </div>
+            <div class="categoryTile">
+                <a href={lightUrl} onclick={lightClick} style="color: black">{label.light}</a>
+            </div>
+            <div class="categoryTile">
+                <a href={securityAndSafetyUrl} onclick={securityAndSafetyClick} style="color: black">{label.security_and_safety}</a>
+            </div>
+            <div class="categoryTile">
+                <a href={smartHvacUrl} onclick={smartHvacClick} style="color: black">{label.smart_HVAC}</a>
+            </div>
+            <div class="categoryTile">
+                <a href={gatesAndBlindsUrl} onclick={gatesAndBlindsClick} style="color: black">{label.gates_and_blinds}</a>
+            </div>
+            <div class="categoryTile">
+                <a href={controlUrl} onclick={controlClick} style="color: black">{label.control}</a>
+            </div>
+        </div>
+    </div>
+</template>

@@ -1,0 +1,4 @@
+<design:component>
+    <design:attribute name="type" label="Type" dataSource="Track, Artist"/>
+    <design:attribute name="onClick" label="On Click" dataSource="View, Preview"/>
+</design:component>

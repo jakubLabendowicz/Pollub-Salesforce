@@ -1,0 +1,51 @@
+<template>
+    <template if:false={orderitem.Complaint__c}>
+        <lightning-button onclick={openModal} title={label.complaint} label={label.complaint}>{label.complaint}</lightning-button>
+    </template>
+    <template if:true={orderitem.Complaint__c}>
+        <lightning-button onclick={goToComplaint} title='Go To Complaint' label='Go To Complaint'>Go To Complaint</lightning-button>
+    </template>
+
+    <template if:true={isModalOpen}>
+        <!-- Modal/Popup Box LWC starts here -->
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <!-- Modal/Popup Box LWC header here -->
+                <header class="slds-modal__header">
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title={label.close} onclick={closeModal}>
+                        <lightning-icon icon-name="utility:close"
+                            alternative-text={label.close}
+                            variant="inverse"
+                            size="small" ></lightning-icon>
+                        <span class="slds-assistive-text">{label.close}</span>
+                    </button>
+                    <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">{complaint}</h2>
+                </header>
+                <!-- Modal/Popup Box LWC body starts here -->
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1" style="height: 350px;">
+                        <div class="slds-grid slds-gutters">
+                            <div class="slds-col">
+                                <lightning-input value={newCase.Subject} onchange={handleCaseSubjectChange} type="text" name={label.subject} label={label.subject}></lightning-input>                                
+                            </div>
+                            <div class="slds-col">
+                                <lightning-combobox value={newCase.Reason} onchange={handleCaseReasonChange}
+                                    label={label.reason} 
+                                    name={label.reason}
+                                    options={caseReasonPicklist.data.values}
+                                    placeholder="--None--"></lightning-combobox>
+                            </div> 
+                        </div>
+                        <lightning-textarea style="height: 200px;" value={newCase.Description} onchange={handleCaseDescriptionChange} type="text" name={label.description} label={label.description}></lightning-textarea>
+                </div>
+                <!-- Modal/Popup Box LWC footer starts here -->
+                <footer class="slds-modal__footer">
+                    <button class="slds-button slds-button_neutral" onclick={closeModal} title={label.cancel}>{label.cancel}</button>
+                    
+                    <button class="slds-button slds-button_brand" onclick={saveCase} title={label.addComplaint}>{label.addComplaint}</button>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+    <c-spinner show={showSpinner}></c-spinner>
+</template>

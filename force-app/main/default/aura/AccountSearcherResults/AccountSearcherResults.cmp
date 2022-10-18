@@ -1,0 +1,35 @@
+<aura:component implements="flexipage:availableForAllPageTypes" controller="AccountSearcherController">
+    <aura:attribute name="accounts" type="List"/>
+    <aura:attribute name="name" type="String"/>
+    <aura:attribute name="columns" type="List"/>
+
+    <aura:handler name="change" value="{!v.name}" action="{!c.searchAccountsByName}"/>
+    <aura:handler name="init" value="{! this }" action="{! c.init }"/>
+
+    <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_col-bordered ">
+        <thead>
+            <tr class="slds-text-title_caps">
+                <th class="" scope="col">
+                    <div class="slds-truncate" title="{!$Label.c.AccountName}">Account Name</div>
+                </th>
+                <th class="" scope="col">
+                    <div class="slds-truncate" title="{!$Label.c.Phone}">Phone</div>
+                </th>
+                <th class="" scope="col">
+                    <div class="slds-truncate" title="{!$Label.c.Website}">Website</div>
+                </th>
+                <th class="" scope="col">
+                    <div class="slds-truncate" title="{!$Label.c.BillingCountry}">Billing Country</div>
+                </th>
+                <th class="" scope="col">
+                    <div class="slds-truncate" title="{!$Label.c.BillingCity}">Billing City</div>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <aura:iteration items="{!v.accounts}" var="account">
+                <c:AccountSearcherResultRow account="{!account}"/>
+            </aura:iteration>
+        </tbody>
+    </table>
+</aura:component>

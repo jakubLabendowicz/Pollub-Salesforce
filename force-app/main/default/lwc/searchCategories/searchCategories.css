@@ -1,0 +1,7 @@
+.categoryTile {
+    padding: 10px; border-radius: 5px; background-color: #f4f4f4; display: flex; flex-direction: row; justify-content: center;
+}
+
+.categoryTile:hover {
+    background-color: #e9e9e9;
+}

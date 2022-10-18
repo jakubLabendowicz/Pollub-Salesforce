@@ -1,0 +1,33 @@
+<template>
+    <table class="slds-table slds-table_cell-buffer slds-table_bordered" aria-labelledby="element-with-table-label other-element-with-table-label">
+        <thead>
+            <tr class="slds-line-height_reset">
+                <th>
+                    <div class="slds-truncate" title="Country">Country</div>
+                </th>
+                <th class="" scope="col">
+                    <div class="slds-truncate" title="Tax">Tax</div>
+                </th>
+                <th class="" scope="col">
+                    <div class="slds-truncate" title="Tax Amount">Tax Amount</div>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <template for:each={countryTaxRates} for:item="countryTaxRate">
+                <tr key={countryTaxRate.Id} class="slds-hint-parent">
+                    <td>
+                        <div class="slds-truncate" title={countryTaxRate.record.Country__c}>{countryTaxRate.record.Country__c}</div>
+                    </td>
+                    <td>
+                        <div class="slds-truncate" title={countryTaxRate.record.Tax__c}>{countryTaxRate.record.Tax__c}</div>
+                    </td>
+                    <td>
+                        <div class="slds-truncate" title={countryTaxRate.taxAmount}>{countryTaxRate.taxAmount}</div>
+                    </td>
+                </tr>
+            </template>
+        </tbody>
+    </table>
+    <c-spinner show={showSpinner}></c-spinner>
+</template>

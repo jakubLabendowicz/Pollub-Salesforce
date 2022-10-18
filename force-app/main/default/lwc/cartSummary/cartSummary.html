@@ -1,0 +1,44 @@
+<template>
+    <div style="width: 100%; padding: 10px 10px 10px 10px;" id="Summary">
+        <h2 style="color:#000000CC; font-size: 16px">{label.summary}</h2>
+        <div style="width: 100%; display: flex; flex-direction: column; gap: 10px">
+            <div style="width: 100%; border-radius: 5px; background-color: #f4f4f4; display: flex; flex-direction: column; gap: 10px">
+                <div style="padding: 10px; width: 100%; border-radius: 5px; background-color: #f4f4f4; display: flex; flex-direction: column; gap: 10px">
+                    <b>{label.couponText}</b>
+                    <div>
+                        <div style="display: flex; justify-content: space-between; gap: 10px">
+                            <lightning-input value={couponCode} onchange={handleCouponCodeChange} type="Text"></lightning-input>
+                            <lightning-button-icon onclick={handleCouponCodeApply} icon-name="utility:add"></lightning-button-icon>
+                        </div>
+                    </div>
+                </div>
+                <template if:true={coupon.Active__c}>
+                    <div style="padding: 10px; width: 100%; border-radius: 0px 0px 5px 5px;background-color: #539b55; color: #FFFFFF; display: flex; flex-direction: row; gap: 10px">
+                        <b>{coupon.Code__c}</b>
+                        <div style="display: flex;">
+                            <div>{coupon.Price_reduction_value__c}</div>
+                            <div>{couponMark}</div>
+                        </div>
+                    </div>
+                </template>
+            </div>
+            <div style="padding: 10px; width: 100%; border-radius: 5px; background-color: #f4f4f4; display: flex; gap: 10px">
+                <b>{label.orderValueText}</b>
+                <div>{orderValue}</div>
+            </div>
+            <div style="padding: 10px; width: 100%; border-radius: 5px; background-color: #f4f4f4; display: flex; gap: 10px">
+                <b>{label.couponValueText}</b>
+                <div>{couponValue}</div>
+            </div>
+            <div style="padding: 10px; width: 100%; border-radius: 5px; background-color: #f4f4f4; display: flex; gap: 10px">
+                <b>{label.valueToPayText}</b>
+                <div>{valueToPay}</div>
+            </div>
+            <div style="padding: 10px; width: 100%; border-radius: 5px; background-color: #222222; color: #FFFFFF; display: flex; justify-content: space-between; gap: 10px">
+                <b>{label.makeOrder}</b>
+                <c-cart-make-order></c-cart-make-order>
+            </div>
+        </div>
+    </div>
+    <c-spinner show={showSpinner}></c-spinner>
+</template>

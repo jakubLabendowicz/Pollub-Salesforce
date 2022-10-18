@@ -1,0 +1,47 @@
+<template>
+
+<table class="slds-table slds-table_cell-buffer slds-table_bordered" aria-labelledby="element-with-table-label other-element-with-table-label">
+    <thead>
+        <tr class="slds-line-height_reset">
+            <th>
+                <div class="slds-truncate" title={label.price_book_name}>{label.price_book_name}</div>
+            </th>
+            <th class="" scope="col">
+                <div class="slds-truncate" title={label.description}>{label.description}</div>
+            </th>
+            <th class="" scope="col">
+                <div class="slds-truncate" title={label.active}>{label.active}</div>
+            </th>
+            <th class="" scope="col">
+                <div class="slds-truncate" title={label.start_time}>{label.start_time}</div>
+            </th>
+            <th class="" scope="col">
+                <div class="slds-truncate" title={label.end_time}>{label.end_time}</div>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <template for:each={pricebooks} for:item="pricebook">
+            <tr key={pricebook.Id} class="slds-hint-parent">
+                <td>
+                    <div class="slds-truncate" title={pricebook.Name}>{pricebook.Name}</div>
+                </td>
+                <td>
+                    <div class="slds-truncate" title={pricebook.Description}>{pricebook.Description}</div>
+                </td>
+                <td>
+                    <div class="slds-truncate" title={pricebook.IsActive}>{pricebook.IsActive}</div>
+                </td>
+                <td>
+                    <div class="slds-truncate" title={pricebook.Start_time__c}>{pricebook.Start_time__c}</div>
+                </td>
+                <td>
+                    <div class="slds-truncate" title={pricebook.End_time__c}>{pricebook.End_time__c}</div>
+                </td>
+            </tr>
+        </template>
+    </tbody>
+</table>
+    
+<c-spinner show={showSpinner}></c-spinner>
+</template>

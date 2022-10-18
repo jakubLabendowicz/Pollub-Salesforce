@@ -1,0 +1,9 @@
+<template>
+    <div style="padding: 10px 10px 10px 10px;" id="description">
+        <!-- <h2 style="color:#000000CC; font-size: 16px">Description</h2> -->
+        <div style="font-weight: 300; line-height: 26px; font-size: 17px; letter-spacing: -.27px;">
+            <lightning-formatted-rich-text value={product.Description__c}></lightning-formatted-rich-text>
+        </div>
+    </div>
+    <c-spinner show={showSpinner}></c-spinner>
+</template>

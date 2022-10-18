@@ -1,0 +1,264 @@
+<aura:component controller="SearchifyController" implements="lightning:isUrlAddressable">
+    <aura:attribute name="size" type="String" default="M"/>
+    <aura:attribute name="view" type="String" default="List"/>
+    <aura:attribute name="onClick" type="String" default="View"/>
+    <aura:attribute name="showBlackList" type="Boolean" default="true"/>
+    <aura:attribute name="object" type="Object"/>
+    <aura:attribute name="rate" type="List"/>
+
+    <aura:attribute name="title" type="List"/>
+    <aura:attribute name="subtitle" type="List"/>
+
+    <aura:handler name="init" value="{! this }" action="{!c.onInit}"/>
+
+    <aura:handler action="{!c.onSendObject}" event="c:SearchifySendObject"/>
+
+    <lightning:notificationsLibrary aura:id="notification"/>
+
+    <lightning:navigation aura:id="navService" />
+
+    <aura:if isTrue="{!not(and(v.showBlackList == false, v.object.BlackList__c == true))}">
+        <aura:if isTrue="{!v.view == 'Tiles'}">
+            <lightning:layoutItem padding="around-small">
+                <div class="slds-box" style="width: 170px; display: flex; flex-direction: column; justify-content: center">
+                    <aura:if isTrue="{!v.onClick == 'Preview'}">
+                        <div onclick="{!c.onPreview}" style="width: 138px; height: 116px; display: flex; flex-direction: row; justify-content: center">
+                            <img src="{!v.object.Image__c}" style="border-radius: 5px; max-height: 116px; max-width: 116px"></img>
+                            <aura:if isTrue="{!v.object.Image__c == null || v.object.Image__c == ''}">
+                                <aura:if isTrue="{!v.object.Type__c == 'track'}">
+                                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQsAvyfD0Q3xf92k1Q-s5ykoU1PX3NSDx2mhctdXqKrJ_GRF94j" style="border-radius: 5px; max-height: 116px; max-width: 116px"></img>
+                                    <!--                                    <lightning:icon iconName="custom:custom81" size="large" />-->
+                                </aura:if>
+                                <aura:if isTrue="{!v.object.Type__c == 'artist'}">
+                                    <img src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcSbcdCiaVRqgPlWGFV4FQRYNt6PTy43IeYvTRCn-gNH6Gxbje8t" style="border-radius: 5px; max-height: 116px; max-width: 116px"></img>
+                                    <!--                                    <lightning:icon iconName="custom:custom15" size="large"/>-->
+                                </aura:if>
+                            </aura:if>
+                        </div>
+                        <div onclick="{!c.onPreview}" style="height: 70px; display: flex; align-items: center">
+                            <b>{!v.object.Name}</b>
+                        </div>
+                    </aura:if>
+                    <aura:if isTrue="{!v.onClick == 'View'}">
+                        <div onclick="{!c.onView}" style="width: 138px; height: 116px; display: flex; flex-direction: row; justify-content: center">
+                            <img src="{!v.object.Image__c}" style="border-radius: 5px; max-height: 116px; max-width: 116px"></img>
+                            <aura:if isTrue="{!v.object.Image__c == null || v.object.Image__c == ''}">
+                                <aura:if isTrue="{!v.object.Type__c == 'track'}">
+                                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQsAvyfD0Q3xf92k1Q-s5ykoU1PX3NSDx2mhctdXqKrJ_GRF94j" style="border-radius: 5px; max-height: 116px; max-width: 116px"></img>
+                                    <!--                                    <lightning:icon iconName="custom:custom81" size="large" />-->
+                                </aura:if>
+                                <aura:if isTrue="{!v.object.Type__c == 'artist'}">
+                                    <img src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcSbcdCiaVRqgPlWGFV4FQRYNt6PTy43IeYvTRCn-gNH6Gxbje8t" style="border-radius: 5px; max-height: 116px; max-width: 116px"></img>
+                                    <!--                                    <lightning:icon iconName="custom:custom15" size="large"/>-->
+                                </aura:if>
+                            </aura:if>
+
+                        </div>
+                        <div onclick="{!c.onView}" style="height: 70px; display: flex; align-items: center; ">
+                            <b>{!v.object.Name}</b>
+                        </div>
+                    </aura:if>
+                </div>
+            </lightning:layoutItem>
+        </aura:if>
+        <aura:if isTrue="{!v.view == 'List'}">
+            <aura:if isTrue="{!v.size == 'M'}">
+                <tr class="slds-hint-parent">
+                    <aura:if isTrue="{!v.onClick == 'Preview'}">
+                        <td width="70px" onclick="{!c.onPreview}">
+                            <div class="slds-truncate">
+                                <img src="{!v.object.Image__c}" style="border-radius: 5px"></img>
+                                <aura:if isTrue="{!v.object.Image__c == null || v.object.Image__c == ''}">
+                                    <aura:if isTrue="{!v.object.Type__c == 'track'}">
+                                        <lightning:icon iconName="custom:custom81"/>
+                                    </aura:if>
+                                    <aura:if isTrue="{!v.object.Type__c == 'artist'}">
+                                        <lightning:icon iconName="custom:custom15"/>
+                                    </aura:if>
+                                </aura:if>
+                            </div>
+                        </td>
+                        <td onclick="{!c.onPreview}">
+                            <lightning:layout>
+                                <lightning:layoutItem size="12">
+                                    <div class="slds-truncate">
+                                        <div style="display: flex; width: 350px; flex-wrap: wrap">
+                                            <aura:iteration items="{!v.title}" var="word">
+                                                <b>{!word} &shy;</b>
+                                            </aura:iteration>
+                                        </div>
+                                        <div style="display: flex; width: 350px; flex-wrap: wrap">
+                                            <aura:iteration items="{!v.subtitle}" var="word">
+                                                <div>{!word} &shy;</div>
+                                            </aura:iteration>
+                                        </div>
+                                    </div>
+                                </lightning:layoutItem>
+                            </lightning:layout>
+                        </td>
+                    </aura:if>
+                    <aura:if isTrue="{!v.onClick == 'View'}">
+                        <td width="70px" onclick="{!c.onView}">
+                            <div class="slds-truncate">
+                                <img src="{!v.object.Image__c}" style="border-radius: 5px"></img>
+                                <aura:if isTrue="{!v.object.Image__c == null || v.object.Image__c == ''}">
+                                    <aura:if isTrue="{!v.object.Type__c == 'track'}">
+                                        <lightning:icon iconName="custom:custom81"/>
+                                    </aura:if>
+                                    <aura:if isTrue="{!v.object.Type__c == 'artist'}">
+                                        <lightning:icon iconName="custom:custom15"/>
+                                    </aura:if>
+                                </aura:if>
+                            </div>
+                        </td>
+                        <td onclick="{!c.onView}">
+                            <lightning:layout>
+                                <lightning:layoutItem size="12">
+                                    <div class="slds-truncate">
+                                        <div style="display: flex; width: 350px; flex-wrap: wrap">
+                                            <aura:iteration items="{!v.title}" var="word">
+                                                <b>{!word} &shy;</b>
+                                            </aura:iteration>
+                                        </div>
+                                        <div style="display: flex; width: 350px; flex-wrap: wrap">
+                                            <aura:iteration items="{!v.subtitle}" var="word">
+                                                <div>{!word} &shy;</div>
+                                            </aura:iteration>
+                                        </div>
+                                    </div>
+                                </lightning:layoutItem>
+                            </lightning:layout>
+                        </td>
+                    </aura:if>
+                    <td>
+                        <div class="slds-truncate" style="display: flex; justify-content: flex-end">
+                            <aura:if isTrue="{!v.object.Type__c == 'track'}">
+                                <aura:if isTrue="{!v.object.BlackList__c == false || v.object.BlackList__c == null}">
+                                    <aura:if isTrue="{!v.object.Favorite__c == false || v.object.Favorite__c == null}">
+                                        <lightning:buttonIcon iconName="utility:favorite" variant="border-filled" title="Favorite" onclick="{!c.onFavorite}"/>
+                                    </aura:if>
+                                    <aura:if isTrue="{!v.object.Favorite__c == true}">
+                                        <lightning:buttonIcon iconName="utility:favorite" variant="brand" title="Favorite" onclick="{!c.onFavorite}"/>
+                                    </aura:if>
+                                </aura:if>
+                                <aura:if isTrue="{!v.object.Favorite__c == false || v.object.Favorite__c == null}">
+                                    <aura:if isTrue="{!v.object.BlackList__c == false || v.object.BlackList__c == null}">
+                                        <lightning:buttonIcon iconName="utility:ban" variant="border-filled" title="Black List" onclick="{!c.onBlackList}"/>
+                                    </aura:if>
+                                    <aura:if isTrue="{!v.object.BlackList__c == true}">
+                                        <lightning:buttonIcon iconName="utility:ban" variant="brand" title="Black List" onclick="{!c.onBlackList}"/>
+                                    </aura:if>
+                                </aura:if>
+                            </aura:if>
+                        </div>
+                    </td>
+                    <td width="70px">
+                        <lightning:buttonMenu alternativeText="Show menu">
+                            <aura:if isTrue="{!v.onClick == 'Preview'}">
+                                <lightning:menuItem value="MenuItemOne" label="View" onactive="{!c.onView}"/>
+                            </aura:if>
+                            <aura:if isTrue="{!not(v.object.SpotifyId__c == '' || v.object.SpotifyId__c == null)}">
+                                <lightning:menuItem value="MenuItemOne" label="View in Spotify" onactive="{!c.onViewInSpotify}"/>
+                            </aura:if>
+                            <aura:if isTrue="{!v.object.Id == '' || v.object.Id == null}">
+                                <lightning:menuItem value="MenuItemTwo" label="Save" onactive="{!c.onSave}"/>
+                            </aura:if>
+                            <aura:if isTrue="{!not(v.object.Id == '' || v.object.Id == null)}">
+                                <lightning:menuItem value="MenuItemTwo" label="Delete" onactive="{!c.onSave}"/>
+                            </aura:if>
+                        </lightning:buttonMenu>
+                    </td>
+                </tr>
+            </aura:if>
+            <aura:if isTrue="{!v.size == 'L'}">
+                <tr>
+                    <td>
+                        <div style="display: flex; flex-direction: row; gap: 25px">
+                            <div style="height: 200px; width: 200px" onclick="{!c.onView}">
+                                <img src="{!v.object.Image__c}" style="border-radius: 5px; max-width: 200px; max-height: 200px"></img>
+                                <aura:if isTrue="{!v.object.Image__c == null || v.object.Image__c == ''}">
+                                    <aura:if isTrue="{!v.object.Type__c == 'track'}">
+                                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQsAvyfD0Q3xf92k1Q-s5ykoU1PX3NSDx2mhctdXqKrJ_GRF94j" style="border-radius: 5px; max-width: 200px; max-height: 200px"></img>
+                                        <!--                                    <lightning:icon iconName="custom:custom81" size="large" />-->
+                                    </aura:if>
+                                    <aura:if isTrue="{!v.object.Type__c == 'artist'}">
+                                        <img src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcSbcdCiaVRqgPlWGFV4FQRYNt6PTy43IeYvTRCn-gNH6Gxbje8t" style="border-radius: 5px; max-width: 200px; max-height: 200px"></img>
+                                        <!--                                    <lightning:icon iconName="custom:custom15" size="large"/>-->
+                                    </aura:if>
+                                </aura:if>
+                            </div>
+                            <div style="display: flex; flex-direction: column; gap: 10px; align-items:stretch">
+                                <lightning:layout>
+                                    <lightning:layoutItem size="12">
+                                        <div>
+                                            <div style="display: flex; width: 350px; flex-wrap: wrap">
+                                                <aura:iteration items="{!v.title}" var="word">
+                                                    <b style="font-size: 26px">{!word} &shy;</b>
+                                                </aura:iteration>
+                                            </div>
+                                            <aura:if isTrue="{!v.object.Type__c == 'track'}">
+                                                <div style="display: flex; width: 350px; flex-wrap: wrap">
+                                                    <aura:iteration items="{!v.subtitle}" var="word">
+                                                        <div>{!word} &shy;</div>
+                                                    </aura:iteration>
+                                                </div>
+
+                                                <aura:iteration items="{!v.rate}" var="star">
+                                                    <aura:if isTrue="{!star.show == true}">
+                                                        <lightning:icon iconName="utility:rating" size="small" variant="warning"/>
+                                                    </aura:if>
+                                                    <aura:if isTrue="{!star.show == false}">
+                                                        <lightning:icon iconName="utility:rating" size="small"/>
+                                                    </aura:if>
+                                                </aura:iteration>
+                                            </aura:if>
+                                            <aura:if isTrue="{!v.object.Type__c == 'artist'}">
+                                                <div style="display: flex; width: 350px; flex-wrap: wrap">
+                                                    <aura:iteration items="{!v.subtitle}" var="word">
+                                                        <div>{!word} &shy;</div>
+                                                    </aura:iteration>
+                                                </div>
+                                            </aura:if>
+                                        </div>
+                                    </lightning:layoutItem>
+                                </lightning:layout>
+                                <div>
+                                    <aura:if isTrue="{!v.object.Type__c == 'track'}">
+                                        <aura:if isTrue="{!v.object.BlackList__c == false || v.object.BlackList__c == null}">
+                                            <aura:if isTrue="{!v.object.Favorite__c == false || v.object.Favorite__c == null}">
+                                                <lightning:buttonIcon iconName="utility:favorite" variant="border-filled" title="Favorite" onclick="{!c.onFavorite}"/>
+                                            </aura:if>
+                                            <aura:if isTrue="{!v.object.Favorite__c == true}">
+                                                <lightning:buttonIcon iconName="utility:favorite" variant="brand" title="Favorite" onclick="{!c.onFavorite}"/>
+                                            </aura:if>
+                                        </aura:if>
+                                        <aura:if isTrue="{!v.object.Favorite__c == false || v.object.Favorite__c == null}">
+                                            <aura:if isTrue="{!v.object.BlackList__c == false || v.object.BlackList__c == null}">
+                                                <lightning:buttonIcon iconName="utility:ban" variant="border-filled" title="Black List" onclick="{!c.onBlackList}"/>
+                                            </aura:if>
+                                            <aura:if isTrue="{!v.object.BlackList__c == true}">
+                                                <lightning:buttonIcon iconName="utility:ban" variant="brand" title="Black List" onclick="{!c.onBlackList}"/>
+                                            </aura:if>
+                                        </aura:if>
+                                    </aura:if>
+                                    <aura:if isTrue="{!v.onClick == 'Preview'}">
+                                        <lightning:buttonIcon iconName="utility:preview" variant="border-filled" title="View" onclick="{!c.onView}"/>
+                                    </aura:if>
+                                    <aura:if isTrue="{!not(v.object.SpotifyId__c == '' || v.object.SpotifyId__c == null)}">
+                                        <lightning:buttonIcon iconName="utility:link" variant="border-filled" title="View in Spotify" onclick="{!c.onViewInSpotify}"/>
+                                    </aura:if>
+                                    <aura:if isTrue="{!v.object.Id == '' || v.object.Id == null}">
+                                        <lightning:buttonIcon iconName="utility:save" variant="border-filled" title="Save" onclick="{!c.onSave}"/>
+                                    </aura:if>
+                                    <aura:if isTrue="{!not(v.object.Id == '' || v.object.Id == null)}">
+                                        <lightning:buttonIcon iconName="utility:save" variant="brand" title="Delete" onclick="{!c.onSave}"/>
+                                    </aura:if>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </aura:if>
+        </aura:if>
+    </aura:if>
+</aura:component>

@@ -1,0 +1,39 @@
+<template>
+    <div style="color: #4f5b62; font-size: 2.125rem; font-weight: 700; line-height: 1.25rem; text-transform: initial">
+        <template if:true={star1}>
+            <lightning-icon icon-name="utility:rating" variant="warning"></lightning-icon>
+        </template>
+        <template if:false={star1}>
+            <lightning-icon icon-name="utility:rating"></lightning-icon>
+        </template>
+
+        <template if:true={star2}>
+            <lightning-icon icon-name="utility:rating" variant="warning"></lightning-icon>
+        </template>
+        <template if:false={star2}>
+            <lightning-icon icon-name="utility:rating"></lightning-icon>
+        </template>
+
+        <template if:true={star3}>
+            <lightning-icon icon-name="utility:rating" variant="warning"></lightning-icon>
+        </template>
+        <template if:false={star3}>
+            <lightning-icon icon-name="utility:rating"></lightning-icon>
+        </template>
+
+        <template if:true={star4}>
+            <lightning-icon icon-name="utility:rating" variant="warning"></lightning-icon>
+        </template>
+        <template if:false={star4}>
+            <lightning-icon icon-name="utility:rating"></lightning-icon>
+        </template>
+
+        <template if:true={star5}>
+            <lightning-icon icon-name="utility:rating" variant="warning"></lightning-icon>
+        </template>
+        <template if:false={star5}>
+            <lightning-icon icon-name="utility:rating"></lightning-icon>
+        </template>
+    </div>
+    <c-spinner show={showSpinner}></c-spinner>
+</template>

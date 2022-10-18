@@ -1,0 +1,3 @@
+<aura:event type="APPLICATION" description="SearchifySendObject">
+    <aura:attribute name="object" type="Object"/>
+</aura:event>

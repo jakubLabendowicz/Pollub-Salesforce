@@ -1,0 +1,50 @@
+<template>
+    <div style="padding: 10px 10px 10px 10px;" id="specification">
+        <h2 style="color:#000000CC; font-size: 16px">Specification</h2>
+        <table class="slds-table slds-table_cell-buffer slds-table_header-hidden" aria-label=" Example headless table of Opportunities with no borders ">
+            <tbody>
+                <tr class="slds-hint-parent">
+                    <td>
+                        <h3 class="slds-truncate" title="Color">Color</h3>
+                    </td>
+                    <td>
+                        <div class="slds-truncate" title={product.Color__c}>{product.Color__c}</div>
+                    </td>
+                </tr>
+                <tr class="slds-hint-parent">
+                    <td>
+                        <h3 class="slds-truncate" title="Dimensions">Dimensions</h3>
+                    </td>
+                    <td>
+                        <div class="slds-truncate" title={product.Dimensions__c}>{product.Dimensions__c}</div>
+                    </td>
+                </tr>
+                <tr class="slds-hint-parent">
+                    <td>
+                        <h3 class="slds-truncate" title="Weight">Weight</h3>
+                    </td>
+                    <td>
+                        <div class="slds-truncate" title={product.Weight__c}>{product.Weight__c}</div>
+                    </td>
+                </tr>
+                <tr class="slds-hint-parent">
+                    <td>
+                        <h3 class="slds-truncate" title="Supply Voltage">Supply Voltage</h3>
+                    </td>
+                    <td>
+                        <div class="slds-truncate" title={product.Supply_voltage__c}>{product.Supply_voltage__c}</div>
+                    </td>
+                </tr>
+                <tr class="slds-hint-parent">
+                    <td>
+                        <h3 class="slds-truncate" title="Working Temperature">Working Temperature</h3>
+                    </td>
+                    <td>
+                        <div class="slds-truncate" title={product.Working_temperature__c}>{product.Working_temperature__c}</div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <c-spinner show={showSpinner}></c-spinner>
+</template>

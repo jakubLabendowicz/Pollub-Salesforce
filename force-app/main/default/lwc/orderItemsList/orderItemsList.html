@@ -1,0 +1,58 @@
+<template>
+        <table class="slds-table slds-table_cell-buffer slds-table_bordered" aria-labelledby="element-with-table-label other-element-with-table-label">
+            <thead>
+                <tr class="slds-line-height_reset">
+                    <th>
+                        <div class="slds-truncate" title="Image">Image</div>
+                    </th>
+                    <th>
+                        <div class="slds-truncate" title="Product Name">Product Name</div>
+                    </th>
+                    <th class="" scope="col">
+                        <div class="slds-truncate" title="Quantity">Quantity</div>
+                    </th>
+                    <th class="" scope="col">
+                        <div class="slds-truncate" title="List Price">List Price</div>
+                    </th>
+                    <th class="" scope="col">
+                        <div class="slds-truncate" title="Make a Complaint">Make a Complaint</div>
+                    </th>
+                    <th class="" scope="col">
+                        <div class="slds-truncate" title="Complaint">Complaint</div>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <template for:each={show_orderItems} for:item="show_orderItem">
+                    <tr key={show_orderItem.Id} class="slds-hint-parent">
+                        <td>
+                            <div style="height: 100px">
+                                <c-product-thumbnail recordid={show_orderItem.Product2Id}></c-product-thumbnail>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="slds-truncate" title={show_orderItem.Product_Name__c}>{show_orderItem.Product_Name__c}</div>
+                        </td>
+                        <td>
+                            <div class="slds-truncate" title={show_orderItem.Quantity}>{show_orderItem.Quantity}</div>
+                        </td>
+                        <td>
+                            <div class="slds-truncate" title={show_orderItem.ListPrice}>{show_orderItem.ListPrice}</div>
+                        </td>
+                        <td>
+                            <c-case-form order={order} orderitem={show_orderItem}></c-case-form>
+                        </td>
+                        <td>
+                            <template if:true={show_orderItem.Complaint__c}>
+                                <lightning-icon size="x-small" icon-name="utility:check"></lightning-icon>
+                            </template>
+                            <template if:false={show_orderItem.Complaint__c}>
+                                <lightning-icon size="x-small" icon-name="utility:close"></lightning-icon>
+                            </template>
+                        </td>
+                    </tr>
+                </template>
+            </tbody>
+        </table>
+        <c-spinner show={showSpinner}></c-spinner>
+</template>

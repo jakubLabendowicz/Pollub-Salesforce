@@ -1,0 +1,25 @@
+<aura:component description="AccountSearcherResultRow">
+    <aura:attribute name="account" type="Account"/>
+
+    <aura:registerEvent name="AccountSelectEvent" type="c:AccountSelectEvent"/>
+
+    <tr class="slds-hint-parent"  onclick="{!c.onSelectMethod}">
+        <td data-label="{!$Label.c.AccountName}">
+            <div class="slds-truncate" title="{!v.account.Name}">{!v.account.Name}</div>
+        </td>
+        <td data-label="{!$Label.c.Phone}">
+            <div class="slds-truncate" title="{!v.account.Phone}">{!v.account.Phone}</div>
+        </td>
+        <td data-label="{!$Label.c.Website}">
+            <a href="{!v.account.Website}">
+                <div class="slds-truncate" title="{!v.account.Website}">{!v.account.Website}</div>
+            </a>
+        </td>
+        <td data-label="{!$Label.c.BillingCountry}">
+            <div class="slds-truncate" title="{!v.account.BillingCountry}">{!v.account.BillingCountry}</div>
+        </td>
+        <td data-label="{!$Label.c.BillingCity}">
+            <div class="slds-truncate" title="{!v.account.BillingCity}">{!v.account.BillingCity}</div>
+        </td>
+    </tr>
+</aura:component>

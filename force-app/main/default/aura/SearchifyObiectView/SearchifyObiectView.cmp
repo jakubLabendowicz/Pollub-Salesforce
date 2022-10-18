@@ -1,0 +1,22 @@
+<aura:component controller="SearchifyController" implements="lightning:isUrlAddressable,flexipage:availableForAllPageTypes">
+    <aura:attribute name="type" type="String"/>
+    <aura:attribute name="spotifyId" type="String" default=""/>
+    <aura:attribute name="id" type="String" default=""/>
+
+    <aura:handler name="init" value="{! this}" action="{!c.onInit}"/>
+    <aura:handler event="aura:locationChange" action="{!c.onInit}"/>
+
+    <aura:if isTrue="{!or(v.spotifyId != '' || v.id != '')}">
+        <aura:if isTrue="{!v.type == 'Artist' || v.type == 'Track'}">
+            <c:SearchifyObjectInformation spotifyId="{!v.spotifyId}" id="{!v.id}" type="{!v.type}" onClick="View"/>
+        </aura:if>
+        <aura:if isTrue="{!v.type == 'Artists' || v.type == 'Tracks'}">
+            <c:SearchifyObjectRelatedList spotifyId="{!v.spotifyId}" id="{!v.id}" type="{!v.type}" onClick="View"/>
+        </aura:if>
+    </aura:if>
+    <aura:if isTrue="{!and(v.spotifyId == '', v.id == '')}">
+        <lightning:card>
+            <c:SearchifyObjectsList/>
+        </lightning:card>
+    </aura:if>
+</aura:component>

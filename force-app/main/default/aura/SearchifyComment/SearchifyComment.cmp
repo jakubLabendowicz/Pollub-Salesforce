@@ -1,0 +1,45 @@
+<aura:component controller="SearchifyController">
+    <aura:attribute name="object" type="Object"/>
+    <aura:attribute name="mode" type="String" default="View"/>
+    <aura:attribute name="isDeleted" type="Boolean" default="false"/>
+
+    <aura:if isTrue="{!v.isDeleted == false}">
+        <tr class="slds-hint-parent">
+            <td width="70px" onclick="{!c.onPreview}">
+                <div class="slds-truncate">
+                    <img src="{!v.object.Image__c}" style="border-radius: 5px"></img>
+                    <aura:if isTrue="{!v.object.Image__c == null}">
+                        <lightning:icon iconName="custom:custom83"/>
+                    </aura:if>
+                </div>
+            </td>
+            <td>
+                <div class="slds-truncate">
+                    <aura:if isTrue="{!v.mode == 'View'}">
+                        <b>{!v.object.User__c}</b>
+                        <div>
+                            <lightning:formattedRichText value="{!v.object.Contents__c}"/>
+                        </div>
+                    </aura:if>
+                    <aura:if isTrue="{!v.mode == 'Edit'}">
+                        <b>{!v.object.User__c}</b>
+                        <div>
+                            <lightning:inputRichText value="{!v.object.Contents__c}"/>
+                        </div>
+                    </aura:if>
+                </div>
+            </td>
+            <td width="70px">
+                <aura:if isTrue="{!v.mode == 'View'}">
+                    <lightning:buttonMenu alternativeText="Show menu">
+                        <lightning:menuItem value="MenuItemOne" label="Edit" onactive="{!c.onEdit}"/>
+                        <lightning:menuItem value="MenuItemOne" label="Delete" onactive="{!c.onDelete}"/>
+                    </lightning:buttonMenu>
+                </aura:if>
+                <aura:if isTrue="{!v.mode == 'Edit'}">
+                    <lightning:buttonIcon iconName="utility:save" alternativeText="Save" onclick="{!c.onSave}">Save</lightning:buttonIcon>
+                </aura:if>
+            </td>
+        </tr>
+    </aura:if>
+</aura:component>

@@ -1,0 +1,14 @@
+<template>
+    <div style="display: flex; gap: 10px; flex-direction: column;">
+        <div style="width: 100%; height: 90px; border-radius: 5px; background-color: #f4f4f4; display: flex; flex-direction: row; justify-content: space-between;">
+            <div style="padding: 10px 50px; border-radius: 5px 0px 0px 5px; width: calc(100% - 200px); height: 100%;  background-color: #f4f4f4; display: flex; justify-content: space-between; flex-direction: column; gap: 10px; color: black">
+                <lightning-input onchange={handleSearchTermChange} type="text" style="width: 100%" value={searchBarTerm}></lightning-input>
+            </div>
+            <div style="padding: 10px; padding-top: 29.5px; border-radius: 0px 5px 5px 0px; width: 200px; height: 100%; background-color: #222222; display: flex; justify-content: center; flex-direction: row; gap: 25px; color: black">
+                <c-search-filtres term={term}></c-search-filtres>
+                <lightning-button-icon onclick={search} size="large" icon-name="utility:search" variant="border-filled"></lightning-button-icon>
+            </div>
+        </div>
+        <c-search-categories term={term}></c-search-categories>
+    </div>
+</template>

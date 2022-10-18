@@ -1,0 +1,8 @@
+<aura:component implements="flexipage:availableForAllPageTypes" controller="AccountSearcherController">
+    <aura:attribute name="name" type="String"/>
+
+    <aura:registerEvent name="AccountSearcherEvent" type="c:AccountSearcherEvent"/>
+    <aura:registerEvent name="AccountSearcherAppEvent" type="c:AccountSearcherAppEvent"/>
+
+    <lightning:input aura:id="nameInput" onchange="{!c.onChangeMethod}" label="{!$Label.c.Name}" type="text" value="{!v.name}"/>
+</aura:component>

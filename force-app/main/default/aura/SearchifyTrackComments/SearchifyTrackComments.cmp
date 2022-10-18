@@ -1,0 +1,58 @@
+<aura:component implements="flexipage:availableForAllPageTypes" controller="SearchifyController">
+    <aura:attribute name="objects" type="Object"/>
+    <aura:attribute name="showNew" type="Boolean" default="false"/>
+    <aura:attribute name="object" type="Comment__c" default="{'sObjectType':'Comment__c', 'Content__c':''}"/>
+    <aura:attribute name="spotifyId" type="String"/>
+    <aura:attribute name="id" type="String"/>
+
+    <aura:attribute name="showNewButton" type="Boolean" default="true"/>
+
+    <aura:handler name="init" value="{! this}" action="{!c.onInit}"/>
+    <aura:handler event="aura:locationChange" action="{!c.onInit}"/>
+<!--    <aura:handler event="aura:waiting" action="{!c.onInit}"/>-->
+    <aura:handler  event="c:SearchifyCommentDeletedInformation" action="{!c.onInit}"/>
+
+    <lightning:card title="Comments" iconName="custom:custom83">
+        <aura:set attribute="actions">
+            <aura:if isTrue="{!v.showNewButton}">
+                <aura:if isTrue="{!not(v.showNew)}">
+                    <lightning:buttonIcon iconName="utility:new" variant="border-filled" title="List" onclick="{!c.onNew}"/>
+                </aura:if>
+                <aura:if isTrue="{!v.showNew}">
+                    <lightning:buttonIcon iconName="utility:new" variant="brand" title="List" onclick="{!c.onCancel}"/>
+                </aura:if>
+            </aura:if>
+        </aura:set>
+
+        <table class="slds-table slds-table_cell-buffer">
+            <tbody>
+                <aura:if isTrue="{!v.showNew}">
+                    <tr class="slds-hint-parent">
+                        <td width="70px">
+                            <div class="slds-truncate">
+                                <img src="{!v.object.Image__c}" style="border-radius: 5px"></img>
+                                <aura:if isTrue="{!v.object.Image__c == null}">
+                                    <lightning:icon iconName="custom:custom83"/>
+                                </aura:if>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="slds-truncate">
+                                <b>{!v.object.User__c}</b>
+                                <div>
+                                    <lightning:inputRichText value="{!v.object.Contents__c}"/>
+                                </div>
+                            </div>
+                        </td>
+                        <td width="70px">
+                            <lightning:buttonIcon iconName="utility:save" alternativeText="Save" onclick="{!c.onSave}">Save</lightning:buttonIcon>
+                        </td>
+                    </tr>
+                </aura:if>
+                <aura:iteration items="{!v.objects}" var="object">
+                    <c:SearchifyComment object="{!object}"/>
+                </aura:iteration>
+            </tbody>
+        </table>
+    </lightning:card>
+</aura:component>

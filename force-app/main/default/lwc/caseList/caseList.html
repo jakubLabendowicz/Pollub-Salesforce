@@ -1,0 +1,55 @@
+<template>
+
+    <table class="slds-table slds-table_cell-buffer slds-table_bordered" aria-labelledby="element-with-table-label other-element-with-table-label">
+        <thead>
+            <tr class="slds-line-height_reset">
+                <th class="" scope="col">
+                    <div class="slds-truncate" title={label.subject}>{label.subject}</div>
+                </th>
+                <th class="" scope="col">
+                    <div class="slds-truncate" title={label.description}>{label.description}</div>
+                </th>
+                <th class="" scope="col">
+                    <div class="slds-truncate" title={label.reason}>{label.reason}</div>
+                </th>
+                <th class="" scope="col">
+                    <div class="slds-truncate" title={label.status}>{label.status}</div>
+                </th>
+                <th class="" scope="col">
+                    <div class="slds-truncate" title={label.dateTimeOpened}>{label.dateTimeOpened}</div>
+                </th>
+                <th>
+                    <div class="slds-truncate" title={label.caseNumber}>{label.caseNumber}</div>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <template for:each={cases} for:item="show_case">
+                <tr key={show_case.Id} class="slds-hint-parent">
+                    <td>
+                        <div class="slds-truncate" title={show_case.Subject}>{show_case.Subject}</div>
+                    </td>
+                    <td>
+                        <div class="slds-truncate" title={show_case.Description}>{show_case.Description}</div>
+                    </td>
+                    <td>
+                        <div class="slds-truncate" title={show_case.Reason}>{show_case.Reason}</div>
+                    </td>
+                    <td>
+                        <div class="slds-truncate" title={show_case.Status}>{show_case.Status}</div>
+                    </td>
+                    <td>
+                        <div class="slds-truncate" title={show_case.CreatedDate}>{show_case.CreatedDate}</div>
+                    </td>
+                    <td>
+                        <div class="slds-truncate" title={show_case.CaseNumber}>{show_case.CaseNumber}</div>
+                    </td>
+                </tr>
+            </template>
+        </tbody>
+    </table>
+
+    <div style="height: 200px;"></div>
+        
+    <c-spinner show={showSpinner}></c-spinner>
+    </template>

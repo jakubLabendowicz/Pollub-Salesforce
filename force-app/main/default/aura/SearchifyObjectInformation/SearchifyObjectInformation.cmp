@@ -1,0 +1,31 @@
+<aura:component implements="flexipage:availableForAllPageTypes" controller="SearchifyController">
+    <aura:attribute name="preObject" type="Object"/>
+    <aura:attribute name="type" type="String" default=""/>
+    <aura:attribute name="spotifyId" type="String" default=""/>
+    <aura:attribute name="id" type="String" default=""/>
+    <aura:attribute name="onClick" type="String" default="View"/>
+    <aura:attribute name="getObject" type="Boolean" default="true"/>
+
+    <aura:attribute name="object" type="List"/>
+
+    <aura:attribute name="spinner" type="boolean" default="false"/>
+    <!--    <aura:handler event="aura:waiting" action="{!c.showSpinner}"/>-->
+    <aura:handler event="aura:doneWaiting" action="{!c.hideSpinner}"/>
+
+    <aura:handler name="init" value="{! this}" action="{!c.onInit}"/>
+    <aura:handler name="change" value="{!v.spotifyId}" action="{!c.onInit}"/>
+    <aura:handler name="change" value="{!v.id}" action="{!c.onInit}"/>
+
+    <lightning:card>
+        <c:SearchifyObjectsList objects="{!v.object}" elementSize="L" onClick="{!v.onClick}"/>
+        <aura:if isTrue="{!v.spinner}">
+            <div aura:id="spinnerId" class="slds-spinner_container">
+                <div class="slds-spinner--brand  slds-spinner slds-spinner--large slds-is-relative" role="alert">
+                    <span class="slds-assistive-text">Loading...</span>
+                    <div class="slds-spinner__dot-a"></div>
+                    <div class="slds-spinner__dot-b"></div>
+                </div>
+            </div>
+        </aura:if>
+    </lightning:card>
+</aura:component>

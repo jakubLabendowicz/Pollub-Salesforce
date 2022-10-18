@@ -1,0 +1,19 @@
+<template>
+    <template if:false={tileview}>
+        <div style="display: flex; width: 100%; justify-content: space-between; padding-top: 20px;">
+            <div style="color: #4f5b62; font-size: 2.125rem; font-weight: 700; line-height: 1.25rem; text-transform: initial;">
+                {productPrice} $
+            </div>
+            <c-cart-add-item recordid={recordid}></c-cart-add-item>
+        </div>
+    </template>
+    <template if:true={tileview}>
+        <div style="display: flex; width: 100%; justify-content: space-between;">
+            <div style="color: #4f5b62; font-size: 25px; font-weight: 500; line-height: 1.25rem; text-transform: initial;">
+                {productPrice} $
+            </div>
+            <c-cart-add-item recordid={recordid}></c-cart-add-item>
+        </div>
+    </template>
+    <c-spinner show={showSpinner}></c-spinner>
+</template>

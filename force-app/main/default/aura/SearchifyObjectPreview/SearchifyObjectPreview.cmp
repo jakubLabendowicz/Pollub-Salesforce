@@ -1,0 +1,26 @@
+<aura:component implements="flexipage:availableForAllPageTypes" controller="SearchifyController">
+    <aura:attribute name="type" type="String"/>
+    <aura:attribute name="object" type="Object"/>
+    <aura:attribute name="spotifyId" type="String" default=""/>
+    <aura:attribute name="id" type="String" default=""/>
+
+    <aura:attribute name="objectsType" type="String" default=""/>
+
+    <aura:handler action="{!c.onEvent}" event="c:SearchifyObjectSelect"/>
+
+        <aura:if isTrue="{!or(and(v.spotifyId != '', v.objectsType != ''), and(v.id != '', v.objectsType != ''))}">
+            <aura:if isTrue="{!v.type == 'Object'}">
+                <c:SearchifyObjectInformation spotifyId="{!v.spotifyId}" id="{!v.id}" type="{!v.objectsType}" preObject="{!v.object}" onClick="Preview" getObject="false"/>
+            </aura:if>
+            <aura:if isTrue="{!v.type == 'Related Objects'}">
+                <c:SearchifyObjectRelatedList spotifyId="{!v.spotifyId}" id="{!v.id}" type="{!v.objectsType}" onClick="View"/>
+            </aura:if>
+        </aura:if>
+        <aura:if isTrue="{!and(or(v.spotifyId == '', v.objectsType == ''), or(v.id == '', v.objectsType == ''))}">
+            <lightning:card>
+                <c:SearchifyObjectsList/>
+            </lightning:card>
+        </aura:if>
+
+
+</aura:component>

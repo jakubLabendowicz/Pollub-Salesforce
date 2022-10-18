@@ -1,0 +1,65 @@
+<template>
+    <div style="padding: 50px 15px 15px 15px;" id="comments">
+        <div style="display: flex; flex-direction: row; justify-content: space-between; gap: 10px">
+            <h2 style="color:#000000CC; font-size: 16px">{label.opinions}</h2>
+            <template if:true={showNew}>
+                <template if:false={isNew}>
+                    <lightning-button-icon icon-name="utility:new" onclick={handleNewButton}></lightning-button-icon>
+                </template>
+            </template>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 10px">
+            <template if:true={isNew}>
+                <div style="padding: 10px; background-color: #f4f4f4">
+                    <div style="display: flex; flex-direction:row; justify-content: space-between; gap: 10px">
+                        <div style="display: flex; flex-direction:row; gap: 30px">
+                            <div style="display: flex; gap: 5px;">
+                                <template if:true={star1}>
+                                    <lightning-button-icon icon-name="utility:rating" variant="brand" value=1 data-star-value=1 onclick={handleProductCommentRateChange}></lightning-button-icon>
+                                </template>
+                                <template if:false={star1}>
+                                    <lightning-button-icon icon-name="utility:rating" value=1 data-star-value=1 onclick={handleProductCommentRateChange}></lightning-button-icon>
+                                </template>
+                                <template if:true={star2}>
+                                    <lightning-button-icon icon-name="utility:rating" variant="brand" value=2 data-star-value=2 onclick={handleProductCommentRateChange}></lightning-button-icon>
+                                </template>
+                                <template if:false={star2}>
+                                    <lightning-button-icon icon-name="utility:rating" value=2 data-star-value=2 onclick={handleProductCommentRateChange}></lightning-button-icon>
+                                </template>
+                                <template if:true={star3}>
+                                    <lightning-button-icon icon-name="utility:rating" variant="brand" value=3 data-star-value=3 onclick={handleProductCommentRateChange}></lightning-button-icon>
+                                </template>
+                                <template if:false={star3}>
+                                    <lightning-button-icon icon-name="utility:rating" value=3 data-star-value=3 onclick={handleProductCommentRateChange}></lightning-button-icon>
+                                </template>
+                                <template if:true={star4}>
+                                    <lightning-button-icon icon-name="utility:rating" variant="brand" value=4 data-star-value=4 onclick={handleProductCommentRateChange}></lightning-button-icon>
+                                </template>
+                                <template if:false={star4}>
+                                    <lightning-button-icon icon-name="utility:rating" value=4 data-star-value=4 onclick={handleProductCommentRateChange}></lightning-button-icon>
+                                </template>
+                                <template if:true={star5}>
+                                    <lightning-button-icon icon-name="utility:rating" variant="brand" value=5 data-star-value=5 onclick={handleProductCommentRateChange}></lightning-button-icon>
+                                </template>
+                                <template if:false={star5}>
+                                    <lightning-button-icon icon-name="utility:rating" value=5 data-star-value=5 onclick={handleProductCommentRateChange}></lightning-button-icon>
+                                </template>
+                            </div>
+                        </div>
+                        <div style="display: flex; flex-direction:row; gap: 10px">
+                            <lightning-button-icon icon-name="utility:undo" onclick={handleCancelButton}></lightning-button-icon>
+                            <lightning-button-icon icon-name="utility:save" onclick={handleSaveButton}></lightning-button-icon>
+                        </div>
+                    </div>
+                    <lightning-textarea value={newProductComment.Content__c} onchange={handleProductCommentContentChange}></lightning-textarea>
+                </div>
+            </template>
+            <template if:false={isNew}>
+                <template iterator:it={productComments}>
+                    <c-product-comment key={it.value.Id} productcomment={it.value}></c-product-comment>
+                </template>
+            </template>
+        </div>
+    </div>
+    <c-spinner show={showSpinner}></c-spinner>
+</template>

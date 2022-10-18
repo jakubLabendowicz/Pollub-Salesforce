@@ -1,0 +1,77 @@
+<template>
+    <lightning-card title={label.create_new_pricebook} icon-name="custom:custom14">
+      <div class="slds-m-around_medium">
+        <div class="slds-grid slds-gutters">
+            <div class="slds-col">
+                <lightning-input value={pricebook.Name} onchange={handlePricebookNameChange} type="text" required="required" name={label.price_book_name} label={label.price_book_name}></lightning-input>
+                <lightning-input value={pricebook.Description} onchange={handlePricebookDescriptionChange} type="text" name={label.description} label={label.description}></lightning-input>
+                <lightning-combobox options={options} value={priceReductionType} onchange={handlePriceReductionTypeChange} name={label.price_reduction_type} label={label.price_reduction_type}></lightning-combobox>
+                <template if:false={isPercent}>
+                    <lightning-input value={priceReductionValue} onchange={handlePriceReductionValueChange} type="Number" name={label.price_reduction_value} label={label.price_reduction_value}></lightning-input>
+                </template>
+                <template if:true={isPercent}>
+                    <lightning-slider min="0" max="100" value={priceReductionValue} onchange={handlePriceReductionValueChange} name={label.price_reduction_value} label={label.price_reduction_value}></lightning-slider>
+                </template>
+                <lightning-input value={pricebook.IsActive} onchange={handlePricebookActiveChange} type="Checkbox" name={label.active} label={label.active}></lightning-input>
+            </div>
+            <div class="slds-col">
+                <lightning-input value={pricebook.Start_time__c} onchange={handlePricebookStartTimeChange} type="Datetime" name={label.start_time} label={label.start_time}></lightning-input>
+                <lightning-input value={pricebook.End_time__c} onchange={handlePricebookEndTimeChange} type="Datetime" name={label.end_time} label={label.end_time}></lightning-input>
+            </div>
+        </div>
+        <div style="padding-top: 20px;">
+          <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+            <thead>
+                <tr class="slds-line-height_reset">
+                    <th>
+                      <div class="slds-truncate" title={label.select}>{label.select}</div>
+                    </th>
+                    <th>
+                        <div class="slds-truncate" title={label.product_name}>{label.product_name}</div>
+                    </th>
+                    <th class="" scope="col">
+                        <div class="slds-truncate" title={label.product_code}>{label.product_code}</div>
+                    </th>
+                    <th class="" scope="col">
+                        <div class="slds-truncate" title={label.list_price}>{label.list_price}</div>
+                    </th>
+                    <th class="" scope="col">
+                        <div class="slds-truncate" title={label.active}>{label.active}</div>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <template for:each={pricebookEntrys} for:item="pricebookEntry">
+                    <tr key={pricebookEntry.Id} class="slds-hint-parent">
+                        <td>
+                          <lightning-input title={pricebookEntry.Id} type="Checkbox" onchange={handleSelectPricebookEntryChange}></lightning-input>
+                        </td>
+                        <td>
+                            <div class="slds-truncate" title={pricebookEntry.Name}>{pricebookEntry.Name}</div>
+                        </td>
+                        <td>
+                            <div class="slds-truncate" title={pricebookEntry.ProductCode}>{pricebookEntry.ProductCode}</div>
+                        </td>
+                        <td>
+                            <div class="slds-truncate" title={pricebookEntry.UnitPrice}>{pricebookEntry.UnitPrice}</div>
+                        </td>
+                        <td>
+                            <template if:true={pricebookEntry.IsActive}>
+                                <lightning-icon size="x-small" icon-name="utility:check"></lightning-icon>
+                            </template>
+                            <template if:false={pricebookEntry.IsActive}>
+                                <lightning-icon size="x-small" icon-name="utility:close"></lightning-icon>
+                            </template>
+                        </td>
+                    </tr>
+                </template>
+            </tbody>
+          </table>
+        </div>
+        <div style="display: flex; justify-content: center; width: 100%; padding-top: 20px">
+          <lightning-button onclick={savePricebook} label={label.save}></lightning-button>
+        </div>
+      </div>
+    </lightning-card>
+    <c-spinner show={showSpinner}></c-spinner>
+  </template>

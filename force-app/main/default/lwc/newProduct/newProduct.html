@@ -1,0 +1,77 @@
+<template>
+    <div style="position:absolute; z-index: 2; padding: 0px 5px; width: calc(100% - 10px); display: flex; flex-direction: row; justify-content: flex-end; transform: translatey(13px); gap: 10px">
+        <lightning-button onclick={openModal} label={label.new_product} class="slds-m-left_x-small"></lightning-button>
+    </div>
+
+    <template if:true={isModalOpen}>
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title={label.close} onclick={closeModal}>
+                        <lightning-icon icon-name="utility:close"
+                            alternative-text="close"
+                            variant="inverse"
+                            size="small" ></lightning-icon>
+                        <span class="slds-assistive-text">{label.close}</span>
+                    </button>
+                    <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">{label.new_product}</h2>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                    <template if:true={productStage}>
+                        <div class="slds-grid slds-gutters">
+                            <div class="slds-col">
+                                <lightning-input value={product.Name} onchange={handleProductNameChange} type="text" required="required" name={label.product_name} label={label.product_name}></lightning-input>
+                                <lightning-input value={product.Manufacturer__c} onchange={handleProductManufacturerChange} type="text" name={label.manufacturer} label={label.manufacturer}></lightning-input>
+                                <lightning-input value={product.Color__c} onchange={handleProductColorChange} type="text" name={label.color} label={label.color}></lightning-input>
+                                <lightning-input value={product.Dimensions__c} onchange={handleProductDimensionsChange} type="text" name={label.dimensions} label={label.dimensions}></lightning-input>
+                                <lightning-input value={product.Weight__c} onchange={handleProductWeightChange} type="text" name={label.weight} label={label.weight}></lightning-input>
+                            </div>
+                            <div class="slds-col">
+                                <lightning-input value={product.ProductCode} onchange={handleProductCodeChange} type="text" name={label.product_code} label={label.product_code}></lightning-input>
+                                <lightning-combobox value={product.Family} onchange={handleProductFamilyChange}
+                                    label={label.product_family} 
+                                    name={label.product_family}
+                                    options={productFamilyPicklist.data.values}
+                                    placeholder="--None--"></lightning-combobox>
+                                <lightning-input value={product.Supply_voltage__c} onchange={handleProductSupplyVoltageChange} type="text" name={label.supply_voltage} label={label.supply_voltage}></lightning-input>
+                                <lightning-input value={product.Working_temperature__c} onchange={handleProductWorkingTemperatureChange} type="text" name={label.working_temperature} label={label.working_temperature}></lightning-input>
+                                <lightning-input value={product.IsActive} onchange={handleProductActiveChange} type="Checkbox" name={label.active} label={label.active}></lightning-input>
+                            </div>
+                        </div>
+                        <lightning-input-rich-text value={product.Description__c} onchange={handleProductDescriptionChange} name={label.product_description} label={label.product_description}></lightning-input-rich-text>
+                    </template>
+                    <template if:true={priceStage}>
+                        <lightning-input value={priceBookEntry.UnitPrice} onchange={handlePriceBookEntryUnitPriceChange} type="Number" required="required" name={label.product_price} label={label.product_price}></lightning-input>
+                    </template>
+                    <template if:true={imagesStage}>
+                        <div style="width: 100%; display: flex; justify-content: center">
+                            <lightning-file-upload
+                                label={label.product_image}
+                                name={label.product_image}
+                                accept={acceptedFormats}
+                                record-id={productId}
+                                onuploadfinished={handleUploadFinished}
+                                multiple
+                            >
+                            </lightning-file-upload>
+                        </div>
+                        <div style="width: 100%; display: flex; flex-direction: row; flex-wrap: wrap; justify-content: space-around; gap: 10px; padding-top: 20px">
+                            <template iterator:it={contentDocumentLinksSrcs}>
+                                <div onclick={handleImageSelect} key={it.value.Id} style="width: 130px; height: 130px; background-color:gray; display: flex; justify-content: center; align-content: center">
+                                    <img src={it.value} data-image-id={it.value} onclick={handleImageSelect}></img>
+                                </div>
+                            </template>
+                        </div>
+                    </template>
+                </div>
+                <footer class="slds-modal__footer">
+                    <button class="slds-button slds-button_neutral" onclick={closeModal} title="Cancel">{label.cancel}</button>
+                    <button class="slds-button slds-button_brand" onclick={next} title="Next">{label.next}</button>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+
+    <c-spinner show={showSpinner}></c-spinner>
+</template>

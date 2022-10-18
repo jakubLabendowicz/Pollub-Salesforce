@@ -1,0 +1,44 @@
+<aura:component implements="flexipage:availableForAllPageTypes,force:hasRecordId" controller="ContactInformationController">
+    <aura:attribute name="contact" type="Contact"/>
+
+    <aura:attribute name="recordId" type="Id"/>
+    <aura:attribute name="pictureSrc" type="String" default="https://s3-us-west-1.amazonaws.com/sfdc-demo/image-placeholder.png"/>
+    <aura:attribute name="message" type="String"/>
+
+    <aura:handler name="init" value="{! this }" action="{! c.init }"/>
+
+    <lightning:card title="{!$Label.c.Information}" iconName="standard:contact">
+        <div class="c-container" style="display: flex; flex-direction: row;">
+                <lightning:layout>
+                    <lightning:layoutItem padding="around-small">
+                        <div>
+                            <div ondragover="{!c.onDragOver}" ondrop="{!c.onDrop}">
+                                <img src="{!v.pictureSrc}"/>
+                                <p>{!v.message}</p>
+                            </div>
+                        </div>
+                    </lightning:layoutItem>
+                    <lightning:layoutItem padding="around-small">
+                        <lightning:recordViewForm recordId="{!v.recordId}" objectApiName="Contact">
+                            <div class="slds-box slds-text-heading_medium">
+                                <b>{!v.contact.Name}</b>
+                            </div>
+                            <div class="slds-grid slds-grid_align-space slds-box">
+                                <div class="slds-col slds-p-horizontal_small">
+                                    <lightning:outputField fieldName="Title" />
+                                    <lightning:outputField fieldName="Department" />
+                                </div>
+                                <div class="slds-col slds-p-horizontal_medium">
+                                    <lightning:outputField fieldName="Phone" />
+                                    <lightning:outputField fieldName="Email" />
+                                </div>
+                                <div class="slds-col slds-p-horizontal_medium">
+                                    <lightning:outputField fieldName="Birthdate" />
+                                </div>
+                            </div>
+                        </lightning:recordViewForm>
+                    </lightning:layoutItem>
+                </lightning:layout>
+        </div>
+    </lightning:card>
+</aura:component>

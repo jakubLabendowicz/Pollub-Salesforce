@@ -1,0 +1,40 @@
+<aura:component controller="SearchifyController">
+    <aura:attribute name="objects" type="List"/>
+    <aura:attribute name="showBlackList" type="Boolean" default="true"/>
+    <aura:attribute name="elementSize" type="String" default="M"/>
+    <aura:attribute name="onClick" type="String" default="View"/>
+    <aura:attribute name="view" type="String" default="List"/>
+
+    <aura:if isTrue="{!v.objects != null}">
+        <aura:if isTrue="{!v.view == 'List'}">
+            <table class="slds-table slds-table_cell-buffer">
+                <tbody>
+                <aura:iteration items="{!v.objects}" var="object">
+                    <c:SearchifyObject object="{!object}" showBlackList="{!v.showBlackList}" size="{!v.elementSize}" onClick="{!v.onClick}"  view="{!v.view}"/>
+                </aura:iteration>
+                </tbody>
+            </table>
+        </aura:if>
+        <aura:if isTrue="{!v.view == 'Tiles'}">
+            <lightning:layout multipleRows="true" horizontalAlign="spread" verticalAlign="start">
+                <aura:iteration items="{!v.objects}" var="object">
+                    <c:SearchifyObject object="{!object}" showBlackList="{!v.showBlackList}" size="{!v.elementSize}" onClick="{!v.onClick}" view="{!v.view}"/>
+                </aura:iteration>
+            </lightning:layout>
+        </aura:if>
+    </aura:if>
+    <aura:if isTrue="{! empty(v.objects)}">
+        <table class="slds-table slds-table_cell-buffer">
+            <tbody>
+            <td>
+                <div style="width: 100%; display: flex; flex-direction: column; justify-content: center; gap: 5px">
+                    <img src="https://britenetspkazoo-dev-ed.lightning.force.com/_slds/images/illustrations/empty-states/desertSmall.svg" style="height: 200px;"></img>
+                    <div style="width: 100%; display: flex; flex-direction: row; justify-content: center; gap: 5px">
+                        No records to display
+                    </div>
+                </div>
+            </td>
+            </tbody>
+        </table>
+    </aura:if>
+</aura:component>

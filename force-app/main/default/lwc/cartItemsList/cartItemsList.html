@@ -1,0 +1,14 @@
+<template>
+    <div style="padding: 10px 10px 10px 10px;" id="products">
+        <h2 style="color:#000000CC; font-size: 16px">{label.products}</h2>
+        <div style="width: 100%; display: flex; flex-direction: column; gap: 10px">
+            <template for:each={cartOrderItems} for:item="cartOrderItem">
+                <c-cart-item key={cartOrderItem} cartitem={cartOrderItem}></c-cart-item>
+            </template>
+            <template if:true={noRecords}>
+                <c-no-records></c-no-records>
+            </template>
+        </div>
+    </div>
+    <c-spinner show={showSpinner}></c-spinner>
+</template>

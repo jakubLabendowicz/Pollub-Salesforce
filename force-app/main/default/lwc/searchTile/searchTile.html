@@ -1,0 +1,17 @@
+<template>
+    <div class="searchTile searchTileOnHover">
+
+        <div onclick={navigateToRecordViewPage} style="padding: 10px; height: 150px; border-radius: 5px 5px 0px 0px; display: flex; flex-direction: row; justify-content: space-between; align-content: space-between">
+            <c-product-thumbnail recordid={recordid}></c-product-thumbnail>
+        </div>
+
+        <div style="padding: 10px; height: 120px; border-radius: 0px 0px 5px 5px; display: flex; flex-direction: column; justify-content: space-between; align-content: space-between">
+            <div style="display: flex; flex-direction: column; gap: 5px;">
+                <b>{product.Name}</b>
+                <div>{product.Manufacturer__c}</div>
+            </div>
+            <c-product-price recordid={recordid} tileview="true"></c-product-price>
+        </div>
+
+    </div>
+</template>

@@ -1,0 +1,43 @@
+<template>
+
+    <lightning-accordion>
+        <template for:each={orders} for:item="show_order">
+        <lightning-accordion-section key={show_order.Id} name={show_order.EffectiveDate} label={show_order.EffectiveDate}>
+            <table  class="slds-table slds-table_cell-buffer slds-table_bordered" aria-labelledby="element-with-table-label other-element-with-table-label">
+                <thead>
+                    <tr class="slds-line-height_reset">
+                        <th>
+                            <div class="slds-truncate" title="Order Amount">Payment Value</div>
+                        </th>
+                        <th class="" scope="col">
+                            <div class="slds-truncate" title="Order Date">Order Date</div>
+                        </th>
+                        <th class="" scope="col">
+                            <div class="slds-truncate" title="Status">Status</div>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                        <tr class="slds-hint-parent">
+                            <td>
+                                <b class="slds-truncate" title={show_order.TotalAmount}>{show_order.Payment_Value__c}</b>
+                            </td>
+                            <td>
+                                <div class="slds-truncate" title={show_order.EffectiveDate}>{show_order.EffectiveDate}</div>
+                            </td>
+                            <td>
+                                <div class="slds-truncate" title={show_order.Status}>{show_order.Status}</div>
+                            </td>
+                        </tr>
+                </tbody>
+            </table>
+            <div style="height: 40px;"></div>
+            <c-order-items-list order={show_order}></c-order-items-list>
+        </lightning-accordion-section>
+    </template>
+    </lightning-accordion>
+
+    <div style="height: 200px;"></div>
+    
+    <c-spinner show={showSpinner}></c-spinner>
+    </template>

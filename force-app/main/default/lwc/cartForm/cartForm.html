@@ -1,0 +1,22 @@
+<template>
+    <div style="padding: 10px 10px 10px 10px;" id="form">
+        <h2 style="color:#000000CC; font-size: 16px">{label.shippingAddress}</h2>
+        <div style="padding: 10px; width: 100%; border-radius: 5px; background-color: #f4f4f4;">
+            <div class="slds-grid slds-gutters">
+                <div class="slds-col">
+                    <lightning-input label={label.shippingStreet} value={shippingAddress.street} onchange={handleStreetChange}></lightning-input>
+                    <lightning-input label={label.shippingCity} value={shippingAddress.city} onchange={handleCityChange}></lightning-input>
+                    <lightning-input label={label.shippingStateProvince} value={shippingAddress.state} onchange={handleStateChange}></lightning-input>
+                </div>
+                <div class="slds-col">
+                    <lightning-input label={label.shippingZipPostalCode} value={shippingAddress.zipCode} onchange={handleZipCodeChange}></lightning-input>
+                    <lightning-input label={label.shippingCountry} value={shippingAddress.country} onchange={handleCountryChange}></lightning-input>
+                </div> 
+            </div>
+            <div style="display: flex; width: 100%; justify-content: flex-end;">
+                <lightning-button label={label.apply} onclick={handleApplyClick}></lightning-button>
+            </div>
+        </div>
+    </div>
+    <c-spinner show={showSpinner}></c-spinner>
+</template>

@@ -1,0 +1,34 @@
+<aura:component implements="flexipage:availableForAllPageTypes" controller="SearchifyController">
+    <aura:attribute name="spotifyId" type="String"/>
+    <aura:attribute name="id" type="String"/>
+    <aura:attribute name="object" type="Object"/>
+    <aura:attribute name="rate" type="List" default="[{show: false, number: 1}, {show: false, number: 2}, {show: false, number: 3}, {show: false, number: 4}, {show: false, number: 5}]"/>
+
+    <aura:handler name="init" value="{! this}" action="{!c.onInit}"/>
+    <aura:handler event="aura:locationChange" action="{!c.onInit}"/>
+
+    <lightning:card title="Your Rating" iconName="custom:custom48">
+        <table class="slds-table slds-table_cell-buffer">
+            <tbody>
+                <tr class="slds-hint-parent">
+                    <td width="70px">
+                        <div class="slds-truncate" style="display: flex; flex-direction: row; justify-content: flex-start">
+                            <aura:iteration items="{!v.rate}" var="star">
+                                <aura:if isTrue="{!star.show == true}">
+                                    <lightning:button value="{!star.number}" onclick="{!c.onChange}" variant="base">
+                                        <lightning:icon iconName="utility:rating" size="small" variant="warning"/>
+                                    </lightning:button>
+                                </aura:if>
+                                <aura:if isTrue="{!star.show == false}">
+                                    <lightning:button value="{!star.number}" onclick="{!c.onChange}" variant="base">
+                                        <lightning:icon iconName="utility:rating" size="small"/>
+                                    </lightning:button>
+                                </aura:if>
+                            </aura:iteration>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </lightning:card>
+</aura:component>

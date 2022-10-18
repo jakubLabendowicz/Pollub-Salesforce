@@ -1,0 +1,14 @@
+<aura:component implements="flexipage:availableForAllPageTypes" controller="AccountSearcherController">
+    <aura:attribute name="mapMarkers" type="Object"/>
+    <aura:attribute name="name" type="String"/>
+
+    <aura:handler action="{!c.handleIdParam}" event="c:AccountSelectEvent"/>
+    <aura:handler action="{!c.handleNameParam}" event="c:AccountSearcherAppEvent"/>
+
+    <aura:registerEvent name="AccountSelectEvent" type="c:AccountSelectEvent"/>
+
+    <aura:handler name="init" value="{! this }" action="{! c.init }"/>
+<!--    <aura:handler name="change" value="{!v.name}" action="{!c.searchMapMarkersByName}"/>-->
+
+    <lightning:map mapMarkers="{! v.mapMarkers }" listView="hidden" onmarkerselect="{!c.onSelectMethod}"/>
+</aura:component>

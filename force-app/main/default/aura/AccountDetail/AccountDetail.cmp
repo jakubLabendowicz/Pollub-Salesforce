@@ -1,0 +1,32 @@
+<aura:component implements="flexipage:availableForAllPageTypes" controller="AccountSearcherController">
+    <aura:attribute name="id" default="" type="String"/>
+
+    <aura:handler action="{!c.handleParam}" event="c:AccountSelectEvent"/>
+
+    <lightning:card title="{!$Label.c.AccountDetails}" variant="base" iconName="standard:account" class="slds-table_bordered">
+        <aura:set attribute="actions">
+            <aura:if isTrue="{!v.id != ''}">
+                <lightning:button label="{!$Label.c.View}" onclick="{!c.viewAccount}"/>
+                <lightning:button label="{!$Label.c.Edit_Button}" onclick="{!c.editAccount}"/>
+            </aura:if>
+        </aura:set>
+
+        <div class="slds-card__body_inner">
+            <lightning:layout multipleRows="true">
+                <lightning:layoutItem size="12" padding="around-small">
+                    <aura:if isTrue="{!v.id == ''}">
+                        <lightning:formattedText value="{!$Label.c.RecordNotSelected}"/>
+                    </aura:if>
+                    <aura:if isTrue="{!v.id != ''}">
+                        <lightning:recordForm aura:id="propertyRecordForm"
+                                              recordId="{!v.id}"
+                                              objectApiName="Account"
+                                              columns="2"
+                                              layoutType="Compact"
+                                              mode="readonly"/>
+                    </aura:if>
+                </lightning:layoutItem>
+            </lightning:layout>
+        </div>
+    </lightning:card>
+</aura:component>
